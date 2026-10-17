@@ -1,0 +1,22 @@
+name: Verify CodeLocal Skills kit
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate canonical skills, both mirrors, policies and archived legacy
+        run: python3 tools/verify_kit.py
+      - name: Detect checker regressions
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Verify agent policy parity
+        run: cmp -s AGENTS.md CLAUDE.md

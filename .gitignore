@@ -1,0 +1,13 @@
+# Local artifacts and secrets
+.env
+.env.*
+!.env.example
+.DS_Store
+*.zip
+node_modules/
+dist/
+build/
+.coverage
+__pycache__/
+*.pyc
+.transfer/
